@@ -5,14 +5,12 @@ int randBelow1k() {
 	return rand() % 1000;
 }
 
-Board::Board() {
-	Board(4);
-}
-
-Board::Board(int len) {
+Board::Board(int len, int player_num) {
 	length = len;
+	player_n = player_num;
 
-	properties = std::vector<Property>(length, Property());
+	players = std::vector<Player>(player_num, Player());
+	properties = std::vector<Property>(length, Property(0,0));
 
 	//
 	// TESTING ONLY
@@ -21,7 +19,8 @@ Board::Board(int len) {
 		int c = randBelow1k();
 		int r = c;
 		while (r >= c) r = randBelow1k();
-		properties[i] = Property(c, r);
+		properties[i].cost = c;
+		properties[i].rent = r;
 	}
 	//
 	// TESTING ONLY ENDS
@@ -29,6 +28,23 @@ Board::Board(int len) {
 
 }
 
+
+int Board::diceRoll() {
+	return 3;
+}
+
+void Board::tick() {
+	for(Player& player : players) {
+		player.pos = (player.pos + diceRoll()) % length;
+		if (properties[player.pos].owner != NULL) {
+			properties[player.pos].payOwner(&player);
+		}
+	}
+
+
+
+
+}
 
 void Board::display() {
 	for (int i = 0; i < length; ++i) {

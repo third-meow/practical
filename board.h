@@ -4,8 +4,12 @@
 class Board {
 	public:
 		int length;
+		int player_n;
+		std::vector<Player> players;
 		std::vector<Property> properties;
-		Board();
-		Board(int len);
+
+		Board(int len, int player_num);
 		void display();
+		int diceRoll();
+		void tick();
 };
