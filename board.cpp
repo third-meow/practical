@@ -14,7 +14,6 @@ Board::Board(int len, int player_num) {
 	players = vector<Player>(player_num);
 	for (int i = 0; i < player_n; ++i) {
 		players[i] = Player();
-		cout << "\t" << players[i].pos;
 	}
 
 	properties = vector<Property>(length);
@@ -77,15 +76,5 @@ void Board::display() {
 	}
 	cout << endl;
 
-
-	//
-	// TESTING ONLY
-	//
-	for (auto player : players) {
-		cout << player.pos << endl;
-	}
-	//
-	// TESTING ONLY ENDS
-	//
 }
 
