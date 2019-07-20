@@ -1,6 +1,8 @@
 #include<bits/stdc++.h>
 #include"board.h"
 
+using namespace std;
+
 int randBelow1k() {
 	return rand() % 1000;
 }
@@ -9,28 +11,24 @@ Board::Board(int len, int player_num) {
 	length = len;
 	player_n = player_num;
 
-	players = std::vector<Player>(player_num, Player());
-	properties = std::vector<Property>(length, Property(0,0));
+	players = vector<Player>(player_num);
+	for (int i = 0; i < player_n; ++i) {
+		players[i] = Player();
+		cout << "\t" << players[i].pos;
+	}
 
-	//
-	// TESTING ONLY
-	//
+	properties = vector<Property>(length);
 	for (int i = 0; i < length; ++i) {
 		int c = randBelow1k();
 		int r = c;
 		while (r >= c) r = randBelow1k();
-		properties[i].cost = c;
-		properties[i].rent = r;
+		properties[i] = Property(c, r);
 	}
-	//
-	// TESTING ONLY ENDS
-	//
-
 }
 
-
 int Board::diceRoll() {
-	return 3;
+	double roll = rand() / RAND_MAX;
+	return ((int)(roll * 10)) + 2;
 }
 
 void Board::tick() {
@@ -40,30 +38,55 @@ void Board::tick() {
 			properties[player.pos].payOwner(&player);
 		}
 	}
-
-
-
-
 }
 
 void Board::display() {
+	// Top bar	---------------------------
 	for (int i = 0; i < length; ++i) {
-		std::cout << "-----";
+		cout << "-----";
 	}
-	std::cout << std::endl;
+	cout << endl;
 
+	// Cost		-----------------------------
 	for (int i = 0; i < length; ++i) {
-		std::cout << std::setw(4) << properties[i].cost << "|";
+		cout << setw(4) << properties[i].cost << "|";
 	}
-	std::cout << std::endl;
+	cout << endl;
 
+	// Rent		-----------------------------
 	for (int i = 0; i < length; ++i) {
-		std::cout << std::setw(4) << properties[i].rent << "|";
+		cout << setw(4) << properties[i].rent << "|";
 	}
-	std::cout << std::endl;
+	cout << endl;
 
-	for (int i = 0; i < length; ++i) {
-		std::cout << "-----";
+	// Players
+	for (Player& player : players) {
+		for (int i = 0; i < length; ++i) {
+			if (player.pos == i) {
+				cout << " *  |";
+			} else {
+				cout << "    |";
+			}
+		}
+		cout << endl;
 	}
-	std::cout << std::endl;
+
+
+	// Bottom bar		-----------------------
+	for (int i = 0; i < length; ++i) {
+		cout << "-----";
+	}
+	cout << endl;
+
+
+	//
+	// TESTING ONLY
+	//
+	for (auto player : players) {
+		cout << player.pos << endl;
+	}
+	//
+	// TESTING ONLY ENDS
+	//
 }
+
