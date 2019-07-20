@@ -27,8 +27,7 @@ Board::Board(int len, int player_num) {
 }
 
 int Board::diceRoll() {
-	double roll = rand() / RAND_MAX;
-	return ((int)(roll * 10)) + 2;
+	return (rand() % 11) + 2;
 }
 
 void Board::tick() {
