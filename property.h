@@ -1,7 +1,6 @@
 #include"player.h"
 
-class Property {
-	public:
+struct Property {
 	int cost;
 	int rent;
 	int house_val;
