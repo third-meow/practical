@@ -1,6 +1,10 @@
 #include<bits/stdc++.h>
 #include"property.h"
 
+Property::Property() {
+	Property(0, 0);
+}
+
 Property::Property(int cst, int rnt) {
 	cost = cst;
 	rent = rnt;
