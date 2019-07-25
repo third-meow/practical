@@ -7,7 +7,7 @@ struct Board {
 	std::vector<Player> players;
 	std::vector<Property> properties;
 
-	Board(int len, int player_num);
+	Board(int len, int player_num, bool devMode);
 	void display();
 	int diceRoll();
 	void tick();

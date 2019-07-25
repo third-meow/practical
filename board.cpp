@@ -7,7 +7,7 @@ int randBelow1k() {
 	return rand() % 1000;
 }
 
-Board::Board(int len, int player_num) {
+Board::Board(int len, int player_num, bool devMode) {
 	// set length and number of players
 	length = len;
 	player_n = player_num;
@@ -16,8 +16,12 @@ Board::Board(int len, int player_num) {
 	players = vector<Player>(player_num);
 	for (int i = 0; i < player_n; ++i) {
 		players[i] = Player();
-		cout << "Player " << i << "'s name: ";
-		cin >> players[i].name;
+		if (!devMode) {
+			cout << "Player " << i << "'s name: ";
+			cin >> players[i].name;
+		} else {
+			players[i].name = "P-"+to_string(i);
+		}
 	}
 
 	// Generate property list
