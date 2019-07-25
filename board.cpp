@@ -8,14 +8,19 @@ int randBelow1k() {
 }
 
 Board::Board(int len, int player_num) {
+	// set length and number of players
 	length = len;
 	player_n = player_num;
 
+	// Generate player list
 	players = vector<Player>(player_num);
 	for (int i = 0; i < player_n; ++i) {
 		players[i] = Player();
+		cout << "Player " << i << "'s name: ";
+		cin >> players[i].name;
 	}
 
+	// Generate property list
 	properties = vector<Property>(length);
 	for (int i = 0; i < length; ++i) {
 		int c = randBelow1k();
