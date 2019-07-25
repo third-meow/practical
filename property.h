@@ -8,8 +8,8 @@ struct Property {
 
 	Property();
 	Property(int cst, int rnt);
-	void setOwner(Player* newOwner);
-	void payOwner(Player* guest);
+	void set_owner(Player* new_owner);
+	void pay_owner(Player* guest);
 };
 
 

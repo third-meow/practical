@@ -12,11 +12,11 @@ Property::Property(int cst, int rnt) {
 	owner = NULL;
 }
 
-void Property::setOwner(Player* newOwner) {
-	owner = newOwner;
+void Property::set_owner(Player* new_owner) {
+	owner = new_owner;
 }
 
-void Property::payOwner(Player* guest) {
+void Property::pay_owner(Player* guest) {
 	guest->cash -= rent;
 	owner->cash += rent;
 }

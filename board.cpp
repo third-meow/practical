@@ -34,15 +34,15 @@ Board::Board(int len, int player_num, bool devMode) {
 	}
 }
 
-int Board::diceRoll() {
+int Board::dice_roll() {
 	return (rand() % 11) + 2;
 }
 
 void Board::tick() {
 	for(Player& player : players) {
-		player.pos = (player.pos + diceRoll()) % length;
+		player.pos = (player.pos + dice_roll()) % length;
 		if (properties[player.pos].owner != NULL) {
-			properties[player.pos].payOwner(&player);
+			properties[player.pos].pay_owner(&player);
 		}
 	}
 }
