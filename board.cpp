@@ -66,7 +66,7 @@ void Board::display() {
 	for (Player& player : players) {
 		for (int i = 0; i < length; ++i) {
 			if (player.pos == i) {
-				cout << " *  |";
+				cout << setw(4) << player.name << "|";
 			} else {
 				cout << "    |";
 			}
