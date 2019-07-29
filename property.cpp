@@ -17,6 +17,6 @@ void Property::set_owner(Player* new_owner) {
 }
 
 void Property::pay_owner(Player* guest) {
-	guest->cash -= rent;
-	owner->cash += rent;
+	guest->pay(rent);
+	owner->receive(rent);
 }

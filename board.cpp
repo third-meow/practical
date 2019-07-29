@@ -22,8 +22,7 @@ Board::Board(int len, int player_num, bool devMode) {
 		} else {
 			players[i].name = "P-"+to_string(i);
 		}
-	}
-
+	} 
 	// Generate property list
 	properties = vector<Property>(length);
 	for (int i = 0; i < length; ++i) {
@@ -34,16 +33,38 @@ Board::Board(int len, int player_num, bool devMode) {
 	}
 }
 
+// Returns random number between 2 and 12, simulating a dice roll
+// TODO: simulate dice roll better by add two random numbers between 1 and 6
 int Board::dice_roll() {
 	return (rand() % 11) + 2;
 }
 
+// Basicly a 'round' of the game
 void Board::tick() {
+	// For each player
 	for(Player& player : players) {
+
+		// Move player by dice roll
 		player.pos = (player.pos + dice_roll()) % length;
+
+		// If property is owned
 		if (properties[player.pos].owner != NULL) {
-			properties[player.pos].pay_owner(&player);
+			try {
+				properties[player.pos].pay_owner(&player);
+			} catch (BankruptException& e) {
+				cout << player.name << " has gone bankrupt" << endl;
+				while (true) {}
+			}
+		} 
+
+		// If property is unowned
+		else {
+			// Attempt to buy property
+			if (player.voluntary_pay(properties[player.pos].cost)) {
+				properties[player.pos].set_owner(&player);
+			}
 		}
+
 	}
 }
 
