@@ -18,8 +18,10 @@ int main(int argc, char *argv[]) {
 	Board board(8, 2, devmode); 
 
 	board.display();
-	board.tick();
-	board.display();
+	while (true) {
+		board.tick();
+		board.display();
+	}
 
 	return 0;
 }
