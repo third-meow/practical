@@ -9,6 +9,7 @@ struct Board {
 
 	Board(int len, int player_num, bool devMode);
 	void display();
-	int dice_roll();
+	int single_dice_roll();
+	int double_dice_roll();
 	void tick();
 };

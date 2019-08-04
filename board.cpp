@@ -33,10 +33,14 @@ Board::Board(int len, int player_num, bool devMode) {
 	}
 }
 
-// Returns random number between 2 and 12, simulating a dice roll
-// TODO: simulate dice roll better by add two random numbers between 1 and 6
-int Board::dice_roll() {
-	return (rand() % 11) + 2;
+// Returns random number between 1 and 6, simulating a dice roll
+int Board::single_dice_roll() {
+	return (rand() % 6) + 1;
+}
+
+// Returns 2 random numbers, each between 1 and 6, added together to simulate two dice rolls
+int Board::double_dice_roll() {
+	return single_dice_roll() + single_dice_roll();
 }
 
 // Basicly a 'round' of the game
@@ -45,7 +49,7 @@ void Board::tick() {
 	for(Player& player : players) {
 
 		// Move player by dice roll
-		player.pos = (player.pos + dice_roll()) % length;
+		player.pos = (player.pos + double_dice_roll()) % length;
 
 		// If property is owned
 		if (properties[player.pos].owner != NULL) {
