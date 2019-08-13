@@ -15,6 +15,7 @@ struct Player {
 	Player();
 	void pay(int amount);
 	bool voluntary_pay(int amount);
+	bool ask_pay(int amount, std::string property_name);
 	void receive(int amount);
 
 };

@@ -8,6 +8,8 @@ int randBelow1k() {
 }
 
 Board::Board(int len, int player_num, bool devMode) {
+	// set board's dev mode flag
+	dev_mode = devMode;
 	// set length and number of players
 	length = len;
 	player_n = player_num;
@@ -48,6 +50,8 @@ void Board::tick() {
 	// For each player
 	for(Player& player : players) {
 
+		cout << "=== " << player.name << endl;
+
 		// Move player by dice roll
 		player.pos = (player.pos + double_dice_roll()) % length;
 
@@ -64,8 +68,16 @@ void Board::tick() {
 		// If property is unowned
 		else {
 			// Attempt to buy property
-			if (player.voluntary_pay(properties[player.pos].cost)) {
-				properties[player.pos].set_owner(&player);
+			if (dev_mode) {
+				// In dev mode, buy it if theres enough funds
+				if (player.voluntary_pay(properties[player.pos].cost)) {
+					properties[player.pos].set_owner(&player);
+				}
+			} else {
+				// In play mode, ask player if they should buy it
+				if (player.ask_pay(properties[player.pos].cost, properties[player.pos].name)) {
+					properties[player.pos].set_owner(&player);
+				}
 			}
 		}
 

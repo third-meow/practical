@@ -2,6 +2,7 @@
 #include"property.h"
 
 struct Board {
+	bool dev_mode;
 	int length;
 	int player_n;
 	std::vector<Player> players;

@@ -1,6 +1,7 @@
 #include"player.h"
 
 struct Property {
+	std::string name = "<no name yet>";
 	int cost;
 	int rent;
 	int house_val;
