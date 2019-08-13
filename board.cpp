@@ -25,7 +25,13 @@ Board::Board(int len, int player_num, bool devMode) {
 			players[i].name = "P-"+to_string(i);
 		}
 	} 
+
 	// Generate property list
+	properties = random_properties(length);
+}
+
+// Generate random propteries vector of set length 
+vector<Propertys> random_properties(int length) {
 	properties = vector<Property>(length);
 	for (int i = 0; i < length; ++i) {
 		int c = randBelow1k();
@@ -33,6 +39,8 @@ Board::Board(int len, int player_num, bool devMode) {
 		while (r >= c) r = randBelow1k();
 		properties[i] = Property(c, r);
 	}
+
+	return properties;
 }
 
 // Returns random number between 1 and 6, simulating a dice roll
